@@ -6,9 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>University Page</title>
+    
+    <link rel="stylesheet" href="{{ asset ('css/bootstrap.min.css') }}">
+    <link href="{{ asset ('css/feather-icons-web/feather.css') }}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="{{ asset ('css/bootstrap.min.css')}}">
+
 </head>
 <body>
     
