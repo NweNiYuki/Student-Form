@@ -13,14 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/uni', function () {
-    return view('create');   
-});
 
-Route::get('/uni/show', function () {
-    return view('show');
-});
+Route::resource('uni', 'StudentController');
+Route::get('/show/{id}', 'StudentController@show');
+
+// Route::get('/uni', function () {
+//     return view('create');   
+// });
+
+// Route::get('/uni/list', function () {
+//     return view('list');
+// });
+
+// Route::get('/uni/show', function () {
+//     return view('show');
+// });
