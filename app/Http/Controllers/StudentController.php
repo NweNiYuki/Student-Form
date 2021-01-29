@@ -88,7 +88,8 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $students = Student::find($id);
+        return view('edit', compact('students'));
     }
 
     /**
@@ -100,7 +101,31 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $students = Student::find($id);
+        $validatedData = request()->validate([
+            'name' => 'required',
+            'rollno' => 'required',
+            'subject' => 'required',
+            'idno' => 'required',
+            'email' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+            
+        ]);
+
+        //image update
+        if(request()->rimage) {
+            $imageName =time().".".request()->rimage->getClientOriginalExtension();
+            request()->rimage->move(public_path('images'), $imageName);
+        }
+
+        if(!empty($imageName)) {
+            $students->update($validatedData + ['cover'=>$imageName]);
+        }else {
+            $students->update($validatedData);
+        }
+
+        return redirect('uni');
     }
 
     /**
@@ -111,6 +136,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+        $student->delete();
+        return redirect('uni');
     }
 }

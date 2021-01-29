@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::resource('uni', 'StudentController');
 Route::get('/show/{id}', 'StudentController@show');
 
+
 // Route::get('/uni', function () {
 //     return view('create');   
 // });

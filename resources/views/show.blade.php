@@ -19,7 +19,7 @@
             </ul>
             <div class="card-body">
               <a href="/uni" class="card-link">Back</a>
-              <a href="#" class="card-link">Edit</a>
+              <a href="#" class="card-link">Print Preview</a>
             </div>
 
             <div class="card-body">
