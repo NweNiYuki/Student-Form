@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +22,7 @@ Route::get('/', function () {
 
 Route::resource('uni', 'StudentController');
 Route::get('/show/{id}', 'StudentController@show');
+Route::get('/search', 'StudentController@search');
 
 
 // Route::get('/uni', function () {

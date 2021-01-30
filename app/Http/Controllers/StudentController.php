@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
+
 class StudentController extends Controller
 {
     /**
@@ -26,6 +27,19 @@ class StudentController extends Controller
     public function create()
     {   
         return view('create');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        $uni = Student::where ('name', 'LIKE', '%'. $search .'%')->orWhere ('rollno', 'LIKE', '%' . $search . '%')->get();
+
+        if (count ( $uni ) > 0) 
+        return view ( 'index', compact('uni') );
+        
+        else 
+            return redirect('uni')->with('message', 'No record found. Try to search again!');
+        
     }
 
     /**
@@ -65,6 +79,7 @@ class StudentController extends Controller
 
 
         $student = Student::create($validatedData + ['cover'=> $imageName]);
+        session()->flash('message', 'Studend has created successfully');
         return redirect('uni');
     }
 
@@ -125,7 +140,7 @@ class StudentController extends Controller
             $students->update($validatedData);
         }
 
-        return redirect('uni');
+        return redirect('uni')->with('message', 'Student has updated successfully');
     }
 
     /**
@@ -138,6 +153,6 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
         $student->delete();
-        return redirect('uni');
+        return redirect('uni')->with('message', 'Student has delected successfully');
     }
 }
