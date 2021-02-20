@@ -9,6 +9,7 @@
     
     <link rel="stylesheet" href="{{ asset ('css/bootstrap.min.css') }}">
     <link href="{{ asset ('css/feather-icons-web/feather.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset ('js/bootstrap.min.js') }}">
 
 
 </head>

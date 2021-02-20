@@ -1,6 +1,6 @@
 @extends('layout')
 @section('content')
-
+   
     <h1 class="mt-5 mb-5">
         <i class="feather-users"></i>
         Manage Student List 
@@ -15,21 +15,26 @@
             </div>
         </form>
     </div>
+    <br>
     
     @if(session("message"))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
             {{ session("message")}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
         </button>
     </div>
     @endif
     
     <div style="float: right">
-       <a href="uni/create" ><button  style="color: #FF9800" class="btn btn-dark"><i class="feather-plus"></i> Add New Student</button></a>
+       <a href="student/create" ><button  style="color: #FF9800" class="btn btn-dark"><i class="feather-plus"></i> Add New Student</button></a>
 
     </div>
-    
+    <div style="float: left">
+        <a href="/township" ><button  style="color: #FF9800" class="btn btn-dark"><i class="feather-plus"></i> Add New Township</button></a>
+ 
+     </div>
+   <br><br>
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
@@ -43,17 +48,18 @@
             <th><i class="feather-phone-call"></i> Phone</th>
             <th>Image </th>
             <th>Actions</th>
+            <th>Remove</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            @foreach ($uni as $student)
+            @foreach ($student as $student)
 
             <td>{{ $student->id }}</td>
             <td>{{ $student->name }}</td>
             <td>{{ $student->rollno }}</td>
             <td>{{ $student->subject }}</td>
-            <td>{{ $student->idno }}</td>
+            <td>{{ $student->initial }}/{{ $student->townshipstate->shortname }}({{ $student->nation }}) {{ $student->idno }}</td>
             <td>{{ $student->email }}</td>
             <td>{{ $student->address }}</td>
             <td>{{ $student->phone }}</td>
@@ -70,12 +76,12 @@
                 <a href="show/{{$student->id}}"><button class="btn btn-info" data-bs-toggle="tooltip" data-bs-placement="bottom" title="view detail">View</button></a>
 
                 
-                <a href="/uni/{{$student->id}}/edit"><button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="edit"><i class="feather-edit"></i></button></a>
+                <a href="/student/{{$student->id}}/edit"><button class="btn btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="edit"><i class="feather-edit"></i></button></a>
                 
             </td>
             
             <td>
-                <form action="/uni/{{ $student->id }}" method="post">
+                <form action="/student/{{ $student->id }}" method="post">
                     @csrf
                     @method("DELETE")
 
@@ -92,5 +98,5 @@
        
   
     </table>
-    
+   
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Township;
 use Illuminate\Http\Request;
 
 
@@ -15,8 +16,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $uni = Student::all();
-        return view('index', compact('uni'));
+        $student = Student::all();
+        return view('index', compact('student'));
     }
 
     /**
@@ -26,19 +27,20 @@ class StudentController extends Controller
      */
     public function create()
     {   
-        return view('create');
+        $township = Township::all();
+        return view('create', compact('township'));
     }
 
     public function search(Request $request)
     {
         $search = $request->get('search');
-        $uni = Student::where ('name', 'LIKE', '%'. $search .'%')->orWhere ('rollno', 'LIKE', '%' . $search . '%')->get();
+        $student = Student::where ('name', 'LIKE', '%'. $search .'%')->orWhere ('rollno', 'LIKE', '%' . $search . '%')->get();
 
-        if (count ( $uni ) > 0) 
-        return view ( 'index', compact('uni') );
+        if (count ( $student ) > 0) 
+        return view ( 'index', compact('student') );
         
         else 
-            return redirect('uni')->with('message', 'No record found. Try to search again!');
+            return redirect('student')->with('message', 'No record found. Try to search again!');
         
     }
 
@@ -64,6 +66,9 @@ class StudentController extends Controller
             'name' => 'required',
             'rollno' => 'required',
             'subject' => 'required',
+            'initial' => 'required',
+            'township_id' => 'required',
+            'nation' => 'required',
             'idno' => 'required',
             'email' => 'required',
             'address' => 'required',
@@ -80,7 +85,7 @@ class StudentController extends Controller
 
         $student = Student::create($validatedData + ['cover'=> $imageName]);
         session()->flash('message', 'Studend has created successfully');
-        return redirect('uni');
+        return redirect('student');
     }
 
     /**
@@ -92,6 +97,7 @@ class StudentController extends Controller
     public function show($id)
     {
         $students = Student::find($id);
+        dd($students->townshipstate->shortname);
         return view('show', compact('students'));
     }
 
@@ -101,10 +107,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Student $student)
     {
-        $students = Student::find($id);
-        return view('edit', compact('students'));
+       $township = Township::all();
+        return view('edit', compact('student', 'township'));
     }
 
     /**
@@ -121,6 +127,9 @@ class StudentController extends Controller
             'name' => 'required',
             'rollno' => 'required',
             'subject' => 'required',
+            'initial' => 'required',
+            'township_id' => 'required',
+            'nation' => 'required',
             'idno' => 'required',
             'email' => 'required',
             'address' => 'required',
@@ -140,7 +149,7 @@ class StudentController extends Controller
             $students->update($validatedData);
         }
 
-        return redirect('uni')->with('message', 'Student has updated successfully');
+        return redirect('student')->with('message', 'Student has updated successfully');
     }
 
     /**
@@ -153,6 +162,6 @@ class StudentController extends Controller
     {
         $student = Student::find($id);
         $student->delete();
-        return redirect('uni')->with('message', 'Student has delected successfully');
+        return redirect('student')->with('message', 'Student has delected successfully');
     }
 }

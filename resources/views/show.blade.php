@@ -11,14 +11,14 @@
               <li class="list-group-item">Name >>{{ $students->name }}</li>
               <li class="list-group-item">Roll No >> {{ $students->rollno }}</li>
               <li class="list-group-item">Subject >> {{ $students->subject }}</li>
-              <li class="list-group-item">IDNo >> {{ $students->idno }}</li>
+              <li class="list-group-item">IDNo >>{{ $students->initial }}/{{$students->townshipstate->shortname}}({{ $students->nation }}) {{ $students->idno }}</li>
               <li class="list-group-item">Email >> {{ $students->email }}</li>
               <li class="list-group-item">Address >> {{ $students->address }}</li>
               <li class="list-group-item">Phone >> {{ $students->phone }}</li>
               
             </ul>
             <div class="card-body">
-              <a href="/uni" class="card-link">Back</a>
+              <a href="/student" class="card-link">Back</a>
               <a href="#" class="card-link">Print Preview</a>
             </div>
 

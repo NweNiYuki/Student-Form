@@ -20,9 +20,12 @@ Route::get('/', function () {
 });
 
 
-Route::resource('uni', 'StudentController');
+Route::resource('student', 'StudentController');
 Route::get('/show/{id}', 'StudentController@show');
 Route::get('/search', 'StudentController@search');
+
+Route::resource('township', 'TownshipController');
+Route::get('/township/{id}/township_edit', 'TownshipController@edit');
 
 
 // Route::get('/uni', function () {
